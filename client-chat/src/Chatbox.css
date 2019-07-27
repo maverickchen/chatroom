@@ -7,7 +7,7 @@
   margin: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   border-radius: 3%;
   overflow: hidden;
 }
@@ -48,7 +48,7 @@
 }
 
 .Chatbubble-area {
-  flex: 50 0;
+  flex: 30 0;
   flex-wrap: nowrap;
   display: flex;
   flex-direction: column;
@@ -70,13 +70,6 @@
 
 .Chatbox-input {
   flex: 1 0;
-  border-top: 2px solid #245acf;
   background-color: #245acf;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   padding: 5%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-self: center;
 }

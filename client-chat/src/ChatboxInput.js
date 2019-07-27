@@ -4,15 +4,15 @@ import './Chatbox.css';
 class ChatboxInput extends Component {
   constructor(props) {
     super(props);
-    this.onClick = props.onClick;
+    this.submit = props.submit;
     this.state = {
       inputValue: ''
     };
   }
 
-  updateInputValue(evt) {
+  updateInputValue(event) {
     this.setState({
-      inputValue: evt.target.value
+      inputValue: event.target.value
     })
   }
 
@@ -22,13 +22,20 @@ class ChatboxInput extends Component {
     })
   }
 
+  handleSubmit(event) {
+    if (event.key === 'Enter') {
+      this.submit(this.state.inputValue);
+      this.clearInput()
+    }
+  }
+
   render() {
     return (
       <div className='Chatbox-input'>
-        <input value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
-        <button onClick={() => {this.onClick(this.state.inputValue); this.clearInput()}}>
-          Send
-        </button>
+        <input value={this.state.inputValue}
+              onChange={event => this.updateInputValue(event)}
+              onKeyPress={event => this.handleSubmit(event)}
+        />
       </div>
     );
   }

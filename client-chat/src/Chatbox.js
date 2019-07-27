@@ -8,12 +8,12 @@ class Chatbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipient: props['recipient'],
-      messages: []
+      recipient: props.recipient,
+      messages: props.messages ? props.messages : []
     };
   }
 
-  onSubmitNewMessage = (message) => {
+  submitNewMessage = (message) => {
     this.setState((prevState) => ({
       messages: [...prevState.messages, message]
     }));
@@ -24,7 +24,7 @@ class Chatbox extends Component {
       <div className='Chatbox-main'>
         <ChatBoxHeader header={this.state.recipient} />
         <ChatBubbleArea messages={this.state.messages} />
-        <ChatBoxInput onClick={this.onSubmitNewMessage}/>
+        <ChatBoxInput submit={this.submitNewMessage}/>
       </div>
     );
   }

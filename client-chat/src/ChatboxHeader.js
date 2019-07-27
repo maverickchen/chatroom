@@ -1,6 +1,8 @@
 import React from 'react';
 import './Chatbox.css';
 
+
+// TODO: Add Exit Button with callback
 function ChatBoxHeader(props) {
   return (
     <div>
