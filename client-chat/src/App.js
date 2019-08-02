@@ -1,25 +1,37 @@
 import React from 'react';
 import './App.css';
-import Chatbox from './Chatbox';
 import './Chatbox.css'
+import SignIn from './SignIn';
+import ChatboxManager from './ChatboxManager';
+
+const username = 'Mav';
 
 function App() {
+  const chatboxes = [
+    { recipient: 'Alice', messages: [] },
+    { recipient: 'Bobert', messages: [] },
+    { recipient: 'Charlice', messages: [] },
+    { recipient: 'Derengel', messages: [] }
+  ];
+
   return (
     <div className='Main'>
       <div className='Border'>
-        <h1 className='WelcomeHeader'> 
-          Welcome, Maverick
-        </h1>
-        <div className='Chatboxes'>
-          <Chatbox recipient='Alice' />
-          <Chatbox recipient='Bobert' />
-          <Chatbox recipient='Charlice' />
-          <Chatbox recipient='Derengel' />
-          <Chatbox recipient='Elipid' />
-          <Chatbox recipient='Frommort' />
-          <Chatbox recipient='Geremere' />
-          <Chatbox recipient='Herrilerri' />
-        </div>
+        {!username && 
+          <h1 className='WelcomeHeader'>
+            <SignIn />
+          </h1>
+        }
+        {username && 
+          <div>
+            <h1 className='WelcomeHeader'>
+              Welcome, {username}
+            </h1>
+            <div>
+              <ChatboxManager chatboxes={chatboxes} />
+            </div>
+          </div>
+        }
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import './Chatbox.css';
+import './SignIn.css'
 
-class ChatboxInput extends Component {
+const io = require('socket.io-client');
+
+class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.submit = props.submit;
-    this.state = {
-      inputValue: ''
-    };
+    this.state = { inputValue: '' };
+    // this.login = props.login;
   }
 
   updateInputValue(event) {
@@ -21,17 +21,26 @@ class ChatboxInput extends Component {
       inputValue: ''
     })
   }
+  
+  login(username) {
+    var socket = io('localhost:5000');
+    socket.on('connect', () => {
+      console.log('wow, connected!')
+      socket.emit('message', `hello it's me, ${username}`)
+    })
+  }
 
   handleSubmit(event) {
     if (event.key === 'Enter') {
-      this.submit(this.state.inputValue, 'sent');
+      this.login(this.state.inputValue);
       this.clearInput()
     }
   }
 
   render() {
     return (
-      <div className='Chatbox-input'>
+      <div className='Signin-Input'>
+        Welcome. Please sign in. 
         <input className='Text-input' value={this.state.inputValue}
               onChange={event => this.updateInputValue(event)}
               onKeyPress={event => this.handleSubmit(event)}
@@ -41,4 +50,4 @@ class ChatboxInput extends Component {
   }
 }
 
-export default ChatboxInput;
+export default SignIn;

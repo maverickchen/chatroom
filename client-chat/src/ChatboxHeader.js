@@ -2,12 +2,17 @@ import React from 'react';
 import './Chatbox.css';
 
 
-// TODO: Add Exit Button with callback
 function ChatBoxHeader(props) {
   return (
     <div>
       <h4 className='Chatbox-header'>
-        {props.header}
+        <div style={{display:'inline-block', verticalAlign:'middle'}}>{props.name}</div>
+        <div>
+          <button className='Rounded'
+                  onClick={() => props.onClose(props.name)}>
+            <i className='material-icons' style={{color:'white'}}>close</i>
+          </button>
+        </div>
       </h4>
     </div>
   )
