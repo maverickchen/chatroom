@@ -14,9 +14,9 @@ class Chatbox extends Component {
     this.onClose = props.onClose;
   }
 
-  submitNewMessage = (message, source) => {
+  submitNewMessage = (message, sender) => {
     this.setState((prevState) => ({
-      messages: [...prevState.messages, {message, source}]
+      messages: [...prevState.messages, {message, sender}]
     }));
   }
 
@@ -24,8 +24,8 @@ class Chatbox extends Component {
     return (
       <div className='Chatbox-main'>
         <ChatBoxHeader name={this.state.recipient} onClose={this.onClose} />
-        <ChatBubbleArea messages={this.state.messages} />
-        <ChatBoxInput submit={this.submitNewMessage}/>
+        <ChatBubbleArea recipient={this.state.recipient} messages={this.state.messages} />
+        <ChatBoxInput submit={this.submitNewMessage} />
       </div>
     );
   }

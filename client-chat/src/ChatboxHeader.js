@@ -6,7 +6,7 @@ function ChatBoxHeader(props) {
   return (
     <div>
       <h4 className='Chatbox-header'>
-        <div style={{display:'inline-block', verticalAlign:'middle'}}>{props.name}</div>
+        <div style={{display:'inline-block', verticalAlign:'middle', overflowX:'hidden'}}>{props.name}</div>
         <div>
           <button className='Rounded'
                   onClick={() => props.onClose(props.name)}>

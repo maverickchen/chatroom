@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chatbox from './Chatbox'
+import TextInput from './TextInput';
 
 class ChatboxManager extends Component {
   constructor(props) {
@@ -7,12 +8,29 @@ class ChatboxManager extends Component {
     this.state = { chatboxes: props.chatboxes };
   }
 
-  onAddChatbox() {
-    
+
+  // load messages from localStorage if they exist
+  // ensure only one copy of each chatbox exists at any time
+  onChatAdd(recipient) {
+    if (recipient) {
+      console.log(recipient, this.state.chatboxes)
+      const messages = localStorage.getItem(recipient) || []
+      const newChat = { recipient, messages }
+      this.setState((prevState) => ({
+          chatboxes: [...prevState.chatboxes.filter((chat) => { return chat.recipient !== recipient }), newChat]
+      }))
+    }
+  }
+
+  handleSubmit(event, recipient) {
+    if (event.key === 'Enter') {
+      this.onChatAdd(recipient);
+      return true;
+    }
+    return false;
   }
 
   onChatClose(recipient) {
-    console.log(recipient, this);
     this.setState((prevState) => ({
       chatboxes: prevState.chatboxes.filter((chat) => {
           return (chat.recipient !== recipient)
@@ -23,16 +41,29 @@ class ChatboxManager extends Component {
 
   render() {
     const chatboxes = this.state.chatboxes.map((chat) => {
-      console.log(chat.recipient)
       return <Chatbox recipient={chat.recipient}
                       messages={chat.messages}
                       onClose={()=>this.onChatClose(chat.recipient)}
                       key={chat.recipient} />
     });
-    console.log(chatboxes)
+
     return (
-      <div className='Chatboxes'>
-        {chatboxes}
+      <div>
+        <div>
+          <h4>
+            New Chat with 
+            <TextInput
+              className='Text-input' 
+              onSubmit={(event, recipient) => {
+                  return this.handleSubmit(event,recipient);
+                }
+              }
+            />
+          </h4>
+        </div>
+        <div className='Chatboxes'>
+          {chatboxes}
+        </div>
       </div>
     );
   }

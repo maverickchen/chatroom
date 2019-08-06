@@ -1,40 +1,30 @@
 import React, { Component } from 'react';
 import './Chatbox.css';
+import TextInput from './TextInput';
 
 class ChatboxInput extends Component {
   constructor(props) {
     super(props);
-    this.submit = props.submit;
-    this.state = {
-      inputValue: ''
-    };
+    this.submitMessage = props.submit;
   }
 
-  updateInputValue(event) {
-    this.setState({
-      inputValue: event.target.value
-    })
-  }
-
-  clearInput() {
-    this.setState({
-      inputValue: ''
-    })
-  }
-
-  handleSubmit(event) {
+  handleSubmit(event, message) {
     if (event.key === 'Enter') {
-      this.submit(this.state.inputValue, 'sent');
-      this.clearInput()
+      this.submitMessage(message, 'sent');
+      return true;
     }
+    return false;
   }
 
   render() {
     return (
       <div className='Chatbox-input'>
-        <input className='Text-input' value={this.state.inputValue}
-              onChange={event => this.updateInputValue(event)}
-              onKeyPress={event => this.handleSubmit(event)}
+        <TextInput 
+          className='Text-input'
+          onSubmit={(event, message) => {
+              return this.handleSubmit(event, message)
+            }
+          } 
         />
       </div>
     );
