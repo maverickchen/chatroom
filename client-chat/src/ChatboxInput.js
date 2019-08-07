@@ -10,7 +10,7 @@ class ChatboxInput extends Component {
 
   handleSubmit(event, message) {
     if (event.key === 'Enter') {
-      this.submitMessage(message, 'sent');
+      this.submitMessage(message);
       return true;
     }
     return false;

@@ -19,14 +19,12 @@ class TextInput extends Component {
   }
 
   updateInputValue(event) {
-    console.log('updatedInputValue')
     this.setState({
       inputValue: event.target.value
     })
   }
 
   clearInput() {
-    console.log('clear')
     this.setState({
       inputValue: ''
     })

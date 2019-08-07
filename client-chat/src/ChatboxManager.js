@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import Chatbox from './Chatbox'
 import TextInput from './TextInput';
+import idb from './idb'
 
 class ChatboxManager extends Component {
   constructor(props) {
     super(props);
     this.state = { chatboxes: props.chatboxes };
+    this.socket = props.socket;
+    this.username = props.username;
   }
 
-
-  // load messages from localStorage if they exist
-  // ensure only one copy of each chatbox exists at any time
   onChatAdd(recipient) {
     if (recipient) {
       console.log(recipient, this.state.chatboxes)
-      const messages = localStorage.getItem(recipient) || []
-      const newChat = { recipient, messages }
-      this.setState((prevState) => ({
+      new idb().loadHistoryToChatbox(this.username, recipient).then((newChat) => {
+        this.setState((prevState) => ({
           chatboxes: [...prevState.chatboxes.filter((chat) => { return chat.recipient !== recipient }), newChat]
-      }))
+        }))
+      })
     }
   }
 
@@ -42,7 +42,9 @@ class ChatboxManager extends Component {
   render() {
     const chatboxes = this.state.chatboxes.map((chat) => {
       return <Chatbox recipient={chat.recipient}
+                      username={this.username}
                       messages={chat.messages}
+                      socket={this.socket}
                       onClose={()=>this.onChatClose(chat.recipient)}
                       key={chat.recipient} />
     });
