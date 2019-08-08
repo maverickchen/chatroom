@@ -16,6 +16,10 @@ class Chatbox extends Component {
     this.scrollId = props.recipient;
     this.props.socket.on('incoming-chat', async (event) => await this.onMessageReceived(event))
   }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
   
   componentWillUnmount() {
     // this.socket.close();
