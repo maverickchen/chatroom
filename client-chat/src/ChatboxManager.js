@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Chatbox from './Chatbox'
-import TextInput from './TextInput';
+import Select from 'react-select';
+import Chatbox from './Chatbox';
 import idb from './idb'
 
 class ChatboxManager extends Component {
   constructor(props) {
     super(props);
-    this.state = { chatboxes: [] };
+    this.state = { chatboxes: [], activeUsers: ['mav', 'minsun', 'bobert'] };
     this.socket = props.socket;
     this.socket.on('incoming-chat', async (event) => await this.newChatIfNotExists(event))
     this.socket.emit('join', props.username);
@@ -55,6 +55,9 @@ class ChatboxManager extends Component {
   }
 
   render() {
+    const selectOptions = this.state.activeUsers.map((user) => {
+      return {value:user, label:user}});
+
     const chatboxes = this.state.chatboxes.map((chat) => {
       return <Chatbox recipient={chat.recipient}
                       username={this.username}
@@ -68,13 +71,14 @@ class ChatboxManager extends Component {
       <div>
         <div>
           <h4>
-            New Chat with 
-            <TextInput
-              className='Text-input' 
-              onSubmit={(event, recipient) => {
-                  return this.handleSubmit(event,recipient);
-                }
-              }
+            New Chat with: 
+            <Select
+              className="basic-single"
+              classNamePrefix="select"
+              isSearchable={true}
+              name="username"
+              onChange={(username)=>this.onChatAdd(username.value)}
+              options={selectOptions}
             />
           </h4>
         </div>

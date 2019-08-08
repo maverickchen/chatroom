@@ -10,11 +10,6 @@ function ChatBubbleArea(props) {
               />
   });
 
-  // TODO: Add automatic scroll down
-  // if (chatBubbles.length > 0) {
-  //   chatBubbles[chatBubbles.length-1].scrollIntoView({behavior: 'smooth'});
-  // }
-
   return (
     <div className='Chatbubble-area' id={props.scrollId}>
       {chatBubbles}
