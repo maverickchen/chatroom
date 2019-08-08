@@ -44,15 +44,12 @@ export default class idb {
 
   async loadMessagesToChatboxes(username) {
     const chatThreads = await this.db.chats.get(username);
-    console.log(chatThreads)
     const threadIds = Object.entries(chatThreads.threads);
-    console.log(threadIds)
     const chatboxStates = await Promise.all(threadIds.map(async ([recipient, threadId]) => {
       const thread = await this.db.threads.get(threadId);
       const messages = thread.messages;
       return { recipient, messages }
     }));
-    console.log(chatboxStates)
     return chatboxStates;
   }
 

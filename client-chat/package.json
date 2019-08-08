@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/icons": "^4.2.1",
     "dexie": "^2.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
+    "react-scroll": "^1.7.12",
     "socket.io-client": "^2.2.0"
   },
   "scripts": {

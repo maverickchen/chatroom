@@ -16,7 +16,7 @@ function ChatBubbleArea(props) {
   // }
 
   return (
-    <div className='Chatbubble-area'>
+    <div className='Chatbubble-area' id={props.scrollId}>
       {chatBubbles}
     </div>
   );

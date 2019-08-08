@@ -5,10 +5,10 @@ import './Chatbox.css';
 export default function ChatBubble(props) {
   if (props.sender) {
     return (
-      <div className='Chatbubble-sent'>{props.message}</div>
+      <div className='Chatbubble sent'>{props.message}</div>
     )
   }
   return (
-    <div className='Chatbubble-received'>{props.message}</div>
+    <div className='Chatbubble received'>{props.message}</div>
   )
 }

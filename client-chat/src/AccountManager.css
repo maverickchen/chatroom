@@ -4,9 +4,28 @@
 
 .Signout {
   text-align: right;
+  font-size: calc(10px + 2vmin);
 }
 
 .invisible {
   background-color: transparent;
+  border-radius: 20%;
   border-width: 0px;
+}
+
+.invisible:hover {
+  background-color: rgb(255,255,255,.5);
+  cursor: pointer;
+  /* box-shadow: 0px 3px 2px 2px gray; */
+}
+
+.square {
+  width: calc(10px+2vmin);
+  height: calc(10px+2vmin);
+}
+
+.invisible:active {
+  cursor: pointer;
+  /* box-shadow: 0px 0px 0px 0px; */
+  outline: 0;
 }

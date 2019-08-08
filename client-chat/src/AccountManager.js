@@ -36,7 +36,7 @@ class AccountManager extends Component {
     return (
       <div className='Signout'>
         Log out
-        <button onClick={this.onLogout} className='invisible'>
+        <button onClick={this.onLogout} className='invisible square'>
           <i className='material-icons'>
             exit_to_app
           </i>

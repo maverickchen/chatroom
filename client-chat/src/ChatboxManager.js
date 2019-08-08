@@ -6,14 +6,29 @@ import idb from './idb'
 class ChatboxManager extends Component {
   constructor(props) {
     super(props);
-    this.state = { chatboxes: props.chatboxes };
+    this.state = { chatboxes: [] };
     this.socket = props.socket;
+    this.socket.on('incoming-chat', async (event) => await this.newChatIfNotExists(event))
+    this.socket.emit('join', props.username);
     this.username = props.username;
+  }
+
+  async newChatIfNotExists(event) {
+    console.log('received message', event)
+    const { message, sender, recipient } = event;
+    const otherUser = (sender === this.username) ? recipient : sender
+    const chatbox = this.state.chatboxes.filter((chat) => {
+      return (chat.recipient === otherUser)
+    })[0];
+    if (!chatbox) {
+      console.log(this.username, this.recipient)
+      await new idb().saveMessage(this.username, otherUser, { message, sender });
+      this.onChatAdd(otherUser);
+    }
   }
 
   onChatAdd(recipient) {
     if (recipient) {
-      console.log(recipient, this.state.chatboxes)
       new idb().loadHistoryToChatbox(this.username, recipient).then((newChat) => {
         this.setState((prevState) => ({
           chatboxes: [...prevState.chatboxes.filter((chat) => { return chat.recipient !== recipient }), newChat]
