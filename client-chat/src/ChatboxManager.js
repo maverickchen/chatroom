@@ -37,14 +37,6 @@ class ChatboxManager extends Component {
     }
   }
 
-  handleSubmit(event, recipient) {
-    if (event.key === 'Enter') {
-      this.onChatAdd(recipient);
-      return true;
-    }
-    return false;
-  }
-
   onChatClose(recipient) {
     this.setState((prevState) => ({
       chatboxes: prevState.chatboxes.filter((chat) => {
