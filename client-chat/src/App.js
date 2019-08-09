@@ -26,7 +26,6 @@ class App extends Component {
 
   logout() {
     console.log('Logging out:', this.state.username);
-    this.state.socket.emit('logoff-user', this.state.username);
     this.state.socket.disconnect(true);
     this.setState({ username: null, socket: null });
   }
@@ -36,10 +35,11 @@ class App extends Component {
     <div className='Main'>
       <div className='Border'>
         <h2 className='WelcomeHeader'>
-          <AccountManager onLogin={async (username) => await this.login(username)}
-                          onLogout={() => this.logout()}
-                          username={this.state.username}
-                          />
+          <AccountManager 
+            onLogin={async (username) => await this.login(username)}
+            onLogout={() => this.logout()}
+            username={this.state.username}
+          />
         </h2>
         {this.state.username && 
           <div>

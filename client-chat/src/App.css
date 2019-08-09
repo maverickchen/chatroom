@@ -1,21 +1,15 @@
-.Main {
-  background-color: burlywood;
-  margin: 0px;
-  padding: 40px;
+.HeaderCard {
+  background-color: #f8f2f2;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 5%;
+  box-shadow: 4px 4px 30px 3px #838383;
 }
 
-#root {
-  background-color: burlywood;
-}
+
 
 .Border {
   padding: 5%;
-}
-
-.Clickable:hover {
-  cursor: pointer;
-  background-color: aliceblue;
-  background-blend-mode: darken;
 }
 
 .WelcomeHeader {

@@ -6,11 +6,29 @@ import idb from './idb'
 class ChatboxManager extends Component {
   constructor(props) {
     super(props);
-    this.state = { chatboxes: [], activeUsers: ['mav', 'minsun', 'bobert'] };
+    this.state = { chatboxes: [], activeUsers: [] };
     this.socket = props.socket;
     this.socket.on('incoming-chat', async (event) => await this.newChatIfNotExists(event))
+    this.socket.on('all-users-check-in', () => this.socket.emit('check-in'));
+    this.socket.on('is-online', ({username}) => this.addActiveUser(username));
+    this.socket.on('is-offline', ({username}) => this.removeActiveUser(username));
     this.socket.emit('join', props.username);
     this.username = props.username;
+  }
+
+  addActiveUser(user) {
+    this.setState((prevState) => {
+      if (prevState.activeUsers.includes(user)) {
+        return { activeUsers: prevState.activeUsers }
+      }
+      return { activeUsers : [...prevState.activeUsers, user] }
+    })
+  }
+
+  removeActiveUser(username) {
+    this.setState((prevState) => ({
+      activeUsers: prevState.activeUsers.filter(name => name !== username)
+    }))
   }
 
   async newChatIfNotExists(event) {

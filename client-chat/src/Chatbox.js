@@ -11,14 +11,25 @@ class Chatbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: props.messages ? props.messages : []
+      messages: props.messages ? props.messages : [],
+      recipientOnline: true
     };
     this.scrollId = props.recipient;
     this.props.socket.on('incoming-chat', async (event) => await this.onMessageReceived(event))
+    this.props.socket.on('is-offline', ({username}) => this.handleRecipientSignOff(username));
+    this.props.socket.on('is-online', ({username}) => this.handleRecipientSignOn(username));
   }
 
-  componentDidMount() {
-    this.scrollToBottom();
+  handleRecipientSignOff(username) {
+    if (username === this.props.recipient) {
+      this.setState({recipientOnline: false})
+    }
+  }
+
+  handleRecipientSignOn(username) {
+    if (username === this.props.recipient) {
+      this.setState({recipientOnline: true})
+    }
   }
   
   componentWillUnmount() {
@@ -41,6 +52,10 @@ class Chatbox extends Component {
     }), this.scrollToBottom);
   }
 
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
   scrollToBottom() {
     console.log('scrolling!')
     animateScroll.scrollToBottom({
@@ -59,8 +74,9 @@ class Chatbox extends Component {
   }
 
   render() {
+    const className = this.state.recipientOnline ? 'Chatbox-main' : 'Chatbox-main inactive';
     return (
-      <div className='Chatbox-main'>
+      <div className={className}>
         <ChatBoxHeader 
           recipient={this.props.recipient}
           onClose={this.props.onClose} />

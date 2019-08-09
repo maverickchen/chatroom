@@ -7,39 +7,6 @@ export default class idb {
       chats: "username, threadIds",
       threads: "++id"
     })
-    // this.db.threads.put({
-    //   id: 0,
-    //   messages: [
-    //     {message:'hi maverick', sender:'minsun'}, 
-    //     {message:'hi minsun', sender:'mav'}
-    //   ]
-    // })
-    // this.db.threads.put({
-    //   id: 1,
-    //   messages: [
-    //     {message:'hi maverick', sender:'bobert'}, 
-    //     {message:'hi bobert', sender:'mav'}
-    //   ]
-    // })
-    // this.db.chats.put({
-    //   username: 'mav', 
-    //   threads: {
-    //     'minsun': 0, 
-    //     'bobert': 1 
-    //   }
-    // })
-    // this.db.chats.put({
-    //   username: 'minsun', 
-    //   threads: {
-    //     'mav': 0
-    //   }
-    // })
-    // this.db.chats.put({
-    //   username: 'bobert', 
-    //   threads: {
-    //     'mav': 1
-    //   }
-    // })
   }
 
   async loadMessagesToChatboxes(username) {
@@ -68,10 +35,12 @@ export default class idb {
   }
 
   async saveMessage(username, recipient, newMessageObj) {
+    console.log(username, recipient, newMessageObj)
     const chatThreads = await this.db.chats.get(username);
     if (!chatThreads) {
       const newThreadId = await this.db.threads.add({ messages: [newMessageObj] });
       await this.db.chats.add({ username, threads: { [recipient]: newThreadId } })
+      console.log('new username generated')
       return
     }
     const threadId = chatThreads.threads[recipient];
@@ -81,12 +50,14 @@ export default class idb {
         ...chatThreads.threads,
         [recipient]: newThreadId
       }
+      console.log('new thread with', recipient, 'generated')
       this.db.chats.update(username, { threads: newThreads })
     } else {
       const thread = await this.db.threads.get(threadId);
       const messages = thread.messages;
       const newMessages = [ ...messages, newMessageObj ];
-        this.db.threads.update(threadId, { messages: newMessages })
+      this.db.threads.update(threadId, { messages: newMessages });
+      console.log('new message with', recipient, 'saved')
     }
   }
 }

@@ -17,6 +17,10 @@
   box-shadow:2px 2px 5px darkslategray;
 }
 
+.inactive {
+  opacity: 0.5;
+}
+
 .Rounded {
   background-color: transparent;
   border-width: 0px;
