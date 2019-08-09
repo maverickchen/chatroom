@@ -16,7 +16,7 @@ class App extends Component {
   async login(username) {
     if (username) {
       console.log('Logging in:', username);
-      const socket = io('localhost:5000');
+      const socket = io();
       socket.on('connect', () => {
         socket.emit('login-user', username);
       });

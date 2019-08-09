@@ -31,15 +31,16 @@ class Chatbox extends Component {
       this.setState({recipientOnline: true})
     }
   }
-  
-  componentWillUnmount() {
-    // this.socket.close();
+
+  eventBelongsToThread({sender, recipient}) {
+    return ((this.props.username === sender && this.props.recipient === recipient)
+            || (this.props.recipient === sender && this.props.username === recipient))
   }
 
   async onMessageReceived(event) {
     console.log('received message', event)
-    const { message, sender, recipient } = event;
-    if (this.props.recipient === recipient || this.props.recipient === sender) {
+    if (this.eventBelongsToThread(event)) {
+      const { message, sender } = event;
       this.addNewMessage(message, sender);
       await new idb().saveMessage(this.props.username, this.props.recipient, { message, sender })
     }
@@ -57,7 +58,6 @@ class Chatbox extends Component {
   }
 
   scrollToBottom() {
-    console.log('scrolling!')
     animateScroll.scrollToBottom({
       containerId: this.scrollId
     });
@@ -86,7 +86,9 @@ class Chatbox extends Component {
           messages={this.state.messages}
           scrollId={this.scrollId} />
         <ChatBoxInput
-          submit={(message)=>this.postMessage(message)} />
+          submit={(message)=>this.postMessage(message)}
+          recipientOnline={this.state.recipientOnline}
+          />
       </div>
     );
   }

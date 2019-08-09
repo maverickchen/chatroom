@@ -9,7 +9,7 @@ class ChatboxInput extends Component {
   }
 
   handleSubmit(event, message) {
-    if (event.key === 'Enter' && message) {
+    if (event.key === 'Enter' && message && this.props.recipientOnline) {
       this.submitMessage(message);
       return true;
     }
