@@ -7,7 +7,7 @@ import './Chatbox.css'
 class ChatboxManager extends Component {
   constructor(props) {
     super(props);
-    this.state = { chatboxes: [], activeUsers: ['mav'] };
+    this.state = { chatboxes: [], activeUsers: [] };
     this.socket = props.socket;
     this.socket.on('incoming-chat', async (event) => await this.newChatIfNotExists(event))
     this.socket.on('all-users-check-in', () => this.socket.emit('check-in'));
