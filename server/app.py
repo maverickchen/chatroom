@@ -56,17 +56,6 @@ def send_chat(json):
     emit('incoming-chat', msg_obj, room=sender)
 
 
-# @socketio.on('join')
-# def on_join(room):
-#     print("User joining", room)
-#     join_room(room)
-
-
-# @socketio.on('leave')
-# def on_leave(room):
-#     close_room(room)
-
-
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
