@@ -1,6 +1,6 @@
 echo "installing server dependencies..."
 cd server/
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 echo "installing react dependencies..."
 cd ../client-chat/
