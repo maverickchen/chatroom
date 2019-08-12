@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import Chatbox from './Chatbox';
 import idb from './idb'
+import './Chatbox.css'
 
 class ChatboxManager extends Component {
   constructor(props) {
     super(props);
-    this.state = { chatboxes: [], activeUsers: [] };
+    this.state = { chatboxes: [], activeUsers: ['mav'] };
     this.socket = props.socket;
     this.socket.on('incoming-chat', async (event) => await this.newChatIfNotExists(event))
     this.socket.on('all-users-check-in', () => this.socket.emit('check-in'));
@@ -80,7 +81,7 @@ class ChatboxManager extends Component {
     return (
       <div>
         <div>
-          <h4>
+          <h4 className='Chatbox-manager'>
             New Chat with: 
             <Select
               className="basic-single"

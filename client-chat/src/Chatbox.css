@@ -1,3 +1,12 @@
+:root {
+  --header-footer-color: #384e77;
+  --close-color: #f24c62;
+}
+
+.Chatbox-manager {
+  color: #8bbeb2;
+}
+
 .Chatbox-main {
   background-color: #f5f5f5;
   width: 250px;
@@ -10,7 +19,7 @@
   justify-content: space-around;
   border-radius: 3%;
   overflow: hidden;
-  box-shadow: 2px 2px 5px gray;
+  box-shadow: 2px 2px 5px rgba(47, 79, 79, 0.507);
 }
 
 .Chatbox-main:hover {
@@ -30,7 +39,7 @@
 
 .Clickable:hover {
   cursor: pointer;
-  background-color: #ff0800a4;
+  background-color: #f24c62;
 }
 
 .Chatboxes {
@@ -41,7 +50,7 @@
 }
 
 .Chatbox-header {
-  background-color: #245acf;
+  background-color: var(--header-footer-color);
   flex: 1 0;
   font-size: calc(80% + 2vmin);
   color: white;
@@ -62,7 +71,7 @@
 }
 
 .received {
-  background-color: #245acf;
+  background-color: var(--header-footer-color);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -92,16 +101,19 @@
 
 .Chatbox-input {
   flex: 1 0;
-  background-color: #245acf;
+  background-color: var(--header-footer-color);
   padding: 5%;
   display: flex;
   flex-direction: row;
 }
 
 .Text-input {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid gray;
   flex: 1 0;
-  border-radius: 2px;
+  border-radius: 3px;
   border-width: 0px;
   padding: 5px;
   font-size: calc(30% + 2vmin);
+  font-family: 'Nunito', 'san-serif';
 }

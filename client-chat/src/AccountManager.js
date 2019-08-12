@@ -23,7 +23,7 @@ class AccountManager extends Component {
     return (<div className='Signin'>
     Welcome! Please log in.
     <TextInput 
-      className='Text-input'
+      className='Text-input centered'
       onSubmit={(event, username) => {
           return this.handleSubmit(event, username);
         }
